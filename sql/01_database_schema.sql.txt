@@ -1,0 +1,67 @@
+-- ==============================================================================
+-- Supply Chain Analytics - PostgreSQL Database Schema & Master View
+-- Author: Aayush
+-- Discipline: Production and Industrial Engineering
+-- Description: This script outlines the core dimensional data model and builds 
+-- the master analytical view used for Machine Learning and Power BI reporting.
+-- ==============================================================================
+
+-- ==============================================================================
+-- PART 1: Core Table Architecture (Loaded via Kaggle CSVs)
+-- ==============================================================================
+
+-- 1. Customers Dimension
+CREATE TABLE IF NOT EXISTS Dim_Customers (
+    Customer_ID INT PRIMARY KEY,
+    Customer_Segment VARCHAR(50),
+    Country VARCHAR(100)
+);
+
+-- 2. Products Dimension
+CREATE TABLE IF NOT EXISTS Dim_Products (
+    Product_ID INT PRIMARY KEY,
+    Product_Category VARCHAR(100)
+);
+
+-- 3. Orders Fact Table
+CREATE TABLE IF NOT EXISTS Fact_Orders (
+    Order_ID INT PRIMARY KEY,
+    Order_Date DATE,
+    Customer_ID INT REFERENCES Dim_Customers(Customer_ID),
+    Product_ID INT REFERENCES Dim_Products(Product_ID),
+    Order_Quantity INT,
+    Total_Revenue NUMERIC(10, 2),
+    Shipping_Mode VARCHAR(50),
+    Delivery_Status VARCHAR(50)
+);
+
+-- Note: The machine learning tables (ml_inventory_clusters and ml_logistics_predictions)
+-- are generated and written to the database dynamically via the Python pipeline using SQLAlchemy.
+
+-- ==============================================================================
+-- PART 2: The Master Analytical View
+-- ==============================================================================
+-- This view acts as the gold-layer data source, joining historical facts with
+-- dimensions and engineering the binary 'is_late_flag' target variable for the 
+-- Random Forest classification model.
+
+DROP VIEW IF EXISTS VW_SupplyChain_Analytics;
+
+CREATE VIEW VW_SupplyChain_Analytics AS
+SELECT 
+    f.Order_ID,
+    f.Order_Date,
+    p.Product_Category,
+    c.Customer_Segment,
+    c.Country AS Shipping_Destination,
+    f.Order_Quantity,
+    f.Total_Revenue,
+    f.Shipping_Mode, 
+    f.Delivery_Status,
+    CASE 
+        WHEN f.Delivery_Status = 'Late delivery' THEN 1 
+        ELSE 0 
+    END AS is_late_flag
+FROM Fact_Orders f
+JOIN Dim_Products p ON f.Product_ID = p.Product_ID
+JOIN Dim_Customers c ON f.Customer_ID = c.Customer_ID;
