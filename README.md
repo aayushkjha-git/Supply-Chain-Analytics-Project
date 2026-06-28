@@ -22,4 +22,3 @@ This project is a full-stack data architecture designed to optimize warehouse in
 * `/notebooks` - Step-by-step Jupyter notebooks covering EDA, Clustering, and Predictive Modeling.
 * `/dashboard` - The final Power BI `.pbix` file.
 
-*(Include a screenshot of your final Power BI dashboard right here!)*
