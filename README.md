@@ -30,13 +30,7 @@ This project is a full-stack data architecture designed to optimize warehouse in
 ## 📂 Repository Structure
 * `/sql` - Contains the PostgreSQL schema builds and Master View definitions.
 * `/notebooks` - Step-by-step Jupyter notebooks covering Exploratory Data Analysis (EDA), Clustering, and Predictive Modeling.
-* `/dashboard` - The final Power BI `.pbix` file and supporting DAX measures.
-
-## ⚙️ How to Run This Project
-1. Clone this repository: `git clone (https://github.com/aayushkjha-git/Supply-Chain-Analytics-Project.git)`
-2. Navigate to the `/sql` folder and run the `schema.sql` file in your PostgreSQL environment to build the database.
-3. Install the required Python packages: `pip install -r requirements.txt`
-4. Run the Jupyter notebooks in the `/notebooks` directory in sequential order. 
+* `/dashboard` - The final Power BI `.pbix` file and supporting DAX measures. 
 
 ## 📬 Let's Connect
 I am currently seeking off-campus internship opportunities in Supply Chain and Operations Management for Summer 2026. Let's talk about data-driven logistics!
