@@ -20,7 +20,8 @@ This project is a full-stack data architecture designed to optimize warehouse in
 * **Operational Control Tower:** Built a Power BI dashboard connecting live historical sales data directly to ML probability scores, providing the warehouse floor with a daily, prioritized hit-list of at-risk orders.
 
 ## 📊 Executive Dashboard
-*(Insert a screenshot of your final Power BI dashboard or Matplotlib clustering chart here)*
+*(<img width="636" height="428" alt="Screenshot 2026-06-28 171128" src="https://github.com/user-attachments/assets/418ed327-eec7-466c-a559-d3e64f3ec2b4" />
+)*
 
 ## 🛠️ Tech Stack
 * **Database:** PostgreSQL (Relational modeling, Views, SQL Joins)
